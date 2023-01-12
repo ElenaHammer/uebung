@@ -1,2 +1,2 @@
 # uebung
-Ein Projekt zum Übung 
+Ein Projekt zum üben
