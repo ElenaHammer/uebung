@@ -30,3 +30,15 @@ class PersonMapper(Mapper):
         self._cnx.commit()
         cursor.close()
         return result
+
+    def find_by_key(self, key):
+        pass
+
+    def insert(self, object):
+        pass
+
+    def update(self, object):
+        pass
+
+    def delete(self, object):
+        pass

@@ -5,6 +5,7 @@ from flask_cors import CORS
 # RestX importieren
 from flask_restx import Api, Resource, fields
 
+from server.administration import Administraion
 
 # Flask instanziieren. Am Ende dieser Datei erfolgt dann erst der 'Start' von Flask.
 app = Flask(__name__, static_folder='./build', static_url_path='/')
@@ -15,13 +16,16 @@ Diese eine Zeile setzt die Installation des Package flask-cors voraus.
 """
 CORS(app, resources=r'/uebung/*')
 
+
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
 
+
 @app.errorhandler(404)
 def handle_exeption(err):
     return redirect(url_for("index"))
+
 
 # API aufbauen
 api = Api(app, version='1.0', title='Uebung API')
@@ -39,6 +43,17 @@ person = api.inherit('Person', bo, {
     'vorname': fields.String(attribute='_vorname', description='Vorname der Person')
 })
 
+
+# Person
+@api.route('/person')
+@api.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+class PersonListOperations(Resource):
+    @api.marshal_list_with(person)
+    # @secured
+    def get(self):
+        adm = Administraion()
+        person = adm.get_all_personen()
+        return person
 
 """
 Nachdem wir nun sämtliche Resourcen definiert haben, die wir via REST bereitstellen möchten,
