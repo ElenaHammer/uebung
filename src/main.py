@@ -38,3 +38,17 @@ bo = api.model('BusinessObject', {
 person = api.inherit('Person', bo, {
     'vorname': fields.String(attribute='_vorname', description='Vorname der Person')
 })
+
+
+"""
+Nachdem wir nun sämtliche Resourcen definiert haben, die wir via REST bereitstellen möchten,
+müssen nun die App auch tatsächlich zu starten.
+
+Diese Zeile ist leider nicht Teil der Flask-Doku! In jener Doku wird von einem Start via Kommandozeile ausgegangen.
+Dies ist jedoch für uns in der Entwicklungsumgebung wenig komfortabel. Deshalb kommt es also schließlich zu den 
+folgenden Zeilen. 
+
+**ACHTUNG:** Diese Zeile wird nur in der lokalen Entwicklungsumgebung ausgeführt und hat in der Cloud keine Wirkung!
+"""
+if __name__ == '__main__':
+    app.run(debug=True)
