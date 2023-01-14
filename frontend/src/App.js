@@ -13,6 +13,10 @@ function App() {
         <p>
           Mein name ist {name}
         </p>
+{/*         <Routes>
+				<Route path={process.env.PUBLIC_URL + '/homepage'} 
+        element={<Homepage/>} />
+        </Routes> */}
       </header>
     </div>
   );
