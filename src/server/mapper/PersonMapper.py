@@ -32,9 +32,31 @@ class PersonMapper(Mapper):
         return result
 
     def find_by_key(self, key):
-        pass
+        result = None
+        cursor = self._cnx.cursor()
+        command = ("SELECT id, name, vorname FROM person WHERE id={}".format(key))
+        cursor.execute(command)
+        tuples = cursor.fetchall()
 
-    def insert(self, object):
+        try:
+            (id, name, vorname) = tuples[0]
+
+            person = Person()
+            person.set_id(id)
+            person.set_name(name)
+            person.set_vorname(vorname)
+            result = person
+
+        except IndexError:
+            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
+            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
+        return result
+
+def insert(self, object):
         pass
 
     def update(self, object):

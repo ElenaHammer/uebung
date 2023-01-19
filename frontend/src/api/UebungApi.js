@@ -9,7 +9,7 @@ export default class UebungApi {
     #uebungServerURL = '/uebung';
 
     // Person
-    #getPersonenURL = () => `${this.#hdmatesServerURL}/person`;
+    #getPersonenURL = () => `${this.#uebungServerURL}/person`;
 
     static getAPI() {
         if (this.#api == null) {
