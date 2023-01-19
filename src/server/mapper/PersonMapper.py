@@ -56,11 +56,22 @@ class PersonMapper(Mapper):
         cursor.close()
         return result
 
-def insert(self, object):
+    def insert(self, object):
         pass
 
-    def update(self, object):
-        pass
+    # gegebene Person aktualisieren
+    def update(self, person: Person):
+        cursor = self._cnx.cursor()
+
+        command = "UPDATE person " + "SET name=%s, vorname=%s WHERE id=%s "
+        data = (person.get_name(),
+                person.get_vorname(),
+                person.get_id())
+
+        cursor.execute(command, data)
+
+        self._cnx.commit()
+        cursor.close()
 
     def delete(self, object):
         pass

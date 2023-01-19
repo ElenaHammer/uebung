@@ -55,6 +55,20 @@ class PersonListOperations(Resource):
         person = adm.get_all_personen()
         return person
 
+
+# Person updaten
+@api.route('/person/<int:id>')
+@api.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@api.param('id', 'Die ID des Personen-Objektes')
+class PersonOperations(Resource):
+
+    # Auslesen einer bestimmten Person via ID
+    @api.marshal_with(person)
+    def get(self, id):
+        adm = Administraion()
+        person = adm.get_person_by_id(id)
+        return person
+
 """
 Nachdem wir nun sämtliche Resourcen definiert haben, die wir via REST bereitstellen möchten,
 müssen nun die App auch tatsächlich zu starten.

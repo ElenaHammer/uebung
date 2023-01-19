@@ -53,3 +53,7 @@ class Administraion(object):
         with PersonMapper() as mapper:
             return mapper.find_all()
 
+    # Eine Person anhand der ID auslesen.
+    def get_person_by_id(self, number):
+        with PersonMapper() as mapper:
+            return mapper.find_by_key(number)
