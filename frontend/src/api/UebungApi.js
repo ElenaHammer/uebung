@@ -9,7 +9,8 @@ export default class UebungApi {
     #uebungServerURL = '/uebung';
 
     // Person
-    #getPersonenURL = () => `${this.#hdmatesServerURL}/person`;
+    #getPersonenURL = () => `${this.#uebungServerURL}/person`;
+    #getPersonURL = (id) => `${this.#uebungServerURL}/person${id}`;
 
     static getAPI() {
         if (this.#api == null) {
@@ -33,6 +34,16 @@ export default class UebungApi {
             let personenBO = PersonBO.fromJSON(responseJSON);
             return new Promise(function (resolve) {
                 resolve(personenBO);
+            }
+            )
+        })
+    }
+
+    getPersonByID(id) {
+        return this.#fetchAdvanced(this.#getPersonURL(id)).then((responseJSON) => {
+            let personBO = PersonBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(personBO);
             }
             )
         })
