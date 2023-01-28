@@ -53,6 +53,14 @@ class Administraion(object):
         with PersonMapper() as mapper:
             return mapper.find_all()
 
+    # neue Person anlegen
+    def create_person(self, name, vorname):
+        person = Person()
+        person.set_name(name)
+        person.set_vorname(vorname)
+        with PersonMapper() as mapper:
+            return mapper.insert(person)
+
     # Eine Person anhand der ID auslesen.
     def get_person_by_id(self, number):
         with PersonMapper() as mapper:
