@@ -17,17 +17,6 @@ Diese eine Zeile setzt die Installation des Package flask-cors voraus.
 """
 CORS(app, resources=r'/uebung/*')
 
-
-# @app.route('/')
-# def index():
-#     return app.send_static_file('index.html')
-#
-#
-# @app.errorhandler(404)
-# def handle_exeption(err):
-#     return redirect(url_for("index"))
-
-
 # API aufbauen
 api = Api(app, version='1.0', title='Uebung API')
 
@@ -71,12 +60,24 @@ class PersonListOperations(Resource):
         return person
 
     # Person anlegen
+    # Dieser Code definiert eine HTTP-Post-Methode für Resource PersonListOperations (von Flask-Rest-Api bereitgestellt)
+    # Die @api.marshal_list_with(person, code=200) Annotation sagt der API, dass die Antwort eine Liste
+    # von Personen-Objekten im JSON-Format sein soll, und das HTTP-Statuscode 200 (OK) zurückgegeben werden soll.
     @api.marshal_list_with(person, code=200)
+    # Die @api.expect(person) Annotation sagt der API, dass die Anforderung ein Personen-Objekt
+    # im JSON-Format enthalten soll.
     @api.expect(person)
-    def __pos__(self):
+    def post(self):
+        # Die Funktion erstellt eine neue Instanz der Klasse Administration und erstellt dann eine neue Person-Instanz
+        # mithilfe der Methode Person.from_dict(api.payload),
+        # die aus dem übergebenen api.payload-Dictionary eine Person erstellt.
         adm = Administraion()
         proposal = Person.from_dict(api.payload)
+        # RATSCHLAG Thies: Prüfen Sie stets die Referenzen auf valide Werte, bevor Sie diese verwenden!
         if proposal is not None:
+            # Danach wird die Methode adm.create_person() aufgerufen, um die Person in der Datenbank zu erstellen.
+            # Falls dies erfolgreich ist, wird die erstellte Person und der HTTP-Statuscode 200 zurückgegeben.
+            # Falls nicht, wird nur der Statuscode 500 zurückgegeben.
             person = adm.create_person(
                 proposal.get_name(),
                 proposal.get_vorname())
