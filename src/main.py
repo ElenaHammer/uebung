@@ -14,6 +14,7 @@ app = Flask(__name__)
 """
 Alle Ressourcen mit dem Präfix /uebung für **Cross-Origin Resource Sharing** (CORS) freigeben.
 Diese eine Zeile setzt die Installation des Package flask-cors voraus.
+Im Frontend unter package.json -> "proxy": "http://127.0.0.1:5000" 
 """
 CORS(app, resources=r'/uebung/*')
 
