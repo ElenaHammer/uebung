@@ -1,13 +1,18 @@
 //  Importiert die Component Klasse aus dem 'react'-Modul
 import React, { Component } from 'react';
 
+// Die Form Klasse definiert einen state-Objekt mit der Eigenschaft: name
+// Die Eigenschaft speichert den Wert, der vom Benutzer in das Formularfeld eingegeben wird.
 class Form extends Component {
-    // Die Form Klasse definiert einen state-Objekt mit der Eigenschaft: name
-    // Die Eigenschaft speichert den Wert, der vom Benutzer in das Formularfeld eingegeben wird.
-    state = {
-        name: '',
-    };
 
+    // constructor: initialisieren und erzeugen von Objekten
+    constructor(props) {    // props: Datenelemente die von der übergeordneten Komponente übergeben werden
+        super(props);       // super: Referenz auf die constructor()-Methode der übergeordneten Klasse
+
+        this.state = {      // this.state: weißt dem state-Objekt Eigenschaften/Zustände zu
+            name: '',
+        };
+    }
     // Die Methode handleChange wird aufgerufen, wenn ein Eingabefeld im Formular geändert wird. 
     // Sie aktualisiert den Zustand des Formulars, indem sie den Wert des Formularfelds, 
     // das geändert wurde, in den Zustand überträgt.
