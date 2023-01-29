@@ -9,7 +9,7 @@ export default class PersonBO extends BO {
     }
 
     // Vornamen setzen
-    setVorname(xVorname) {
+    setVorname(xVorname) {
         this.vorname = xVorname;
     }
 

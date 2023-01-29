@@ -43,3 +43,9 @@ export default class BO {
         return result;
     }
 }
+
+// toString() erklärung
+// Diese Codezeile ist eine Methode innerhalb einer Klasse, die einen Zeichenketten-Repräsentation (String)
+// eines Objekts dieser Klasse erzeugt. Die Methode iteriert durch die Eigenschaften des Objekts
+// (for (let prop in this)) und fügt jede Eigenschaft mit ihrem Wert zu einem zusammenhängenden String hinzu
+// (result += prop + ': ' + this[prop] + ''). Am Ende wird der resultierende String zurückgegeben (return result).

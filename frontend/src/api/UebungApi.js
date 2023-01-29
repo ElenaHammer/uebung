@@ -16,6 +16,11 @@ export default class UebungApi {
     // Eine weitere Eigenschaft "getPersonenURL" erzeugt eine vollständige URL für den Zugriff auf die Person-Ressource.
     #getPersonenURL = () => `${this.#uebungServerURL}/person`;
 
+    // Get die Singleton Instanz
+    // Diese Methode "getAPI()" stellt eine Singleton-Instanz der Klasse "UebungApi" bereit. Der Code überprüft,
+    // ob es bereits eine Instanz gibt, indem er die private Klasseneigenschaft "#api" auf "null" überprüft.
+    // Falls die Eigenschaft "null" ist, wird eine neue Instanz der Klasse erstellt und in "#api" gespeichert.
+    // Anschließend wird die Instanz zurückgegeben.
     static getAPI() {
         if (this.#api == null) {
             this.#api = new UebungApi();
