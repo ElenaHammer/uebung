@@ -12,3 +12,12 @@ class Person(BusinessObject):
 
     def set_vorname(self, value):
         self._vorname = value   # Setzen des Vornamens
+
+    # staticmethod, statische Methode, die aufgerufen werden kann, ohne das eine Instanz der Klasse erstellt wurde.
+    @staticmethod
+    def from_dict(object_dict=dict()):
+        """Umwandeln eines Python dict() in eine Person()."""
+        obj = Person()
+        obj.set_name(object_dict["name"])
+        obj.set_vorname(object_dict["vorname"])
+        return obj
