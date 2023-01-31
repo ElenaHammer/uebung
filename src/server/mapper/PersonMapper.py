@@ -89,7 +89,7 @@ class PersonMapper(Mapper):
 
         self._cnx.commit()
         cursor.close()
-        return
+        return person
 
         # gegebene Person aktualisieren
     def update(self, person: Person):
@@ -105,5 +105,8 @@ class PersonMapper(Mapper):
         self._cnx.commit()
         cursor.close()
 
-    def delete(self, object):
-        pass
+    def delete(self, person):
+        cursor = self._cnx.cursor()
+        cursor.execute("DELETE FROM person WHERE id='{}'".format(person.get_id()))
+
+        self._cnx.commit()

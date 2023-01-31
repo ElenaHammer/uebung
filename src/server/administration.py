@@ -65,3 +65,11 @@ class Administraion(object):
     def get_person_by_id(self, number):
         with PersonMapper() as mapper:
             return mapper.find_by_key(number)
+
+    def save_person(self, person):
+        with PersonMapper() as mapper:
+            return mapper.update(person)
+
+    def delete_person(self, person):
+        with PersonMapper() as mapper:
+            return mapper.delete(person)

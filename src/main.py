@@ -64,7 +64,7 @@ class PersonListOperations(Resource):
     # Dieser Code definiert eine HTTP-Post-Methode für Resource PersonListOperations (von Flask-Rest-Api bereitgestellt)
     # Die @api.marshal_list_with(person, code=200) Annotation sagt der API, dass die Antwort eine Liste
     # von Personen-Objekten im JSON-Format sein soll, und das HTTP-Statuscode 200 (OK) zurückgegeben werden soll.
-    @api.marshal_list_with(person, code=200)
+    @api.marshal_with(person, code=200)
     # Die @api.expect(person) Annotation sagt der API, dass die Anforderung ein Personen-Objekt
     # im JSON-Format enthalten soll.
     @api.expect(person)
@@ -93,12 +93,37 @@ class PersonListOperations(Resource):
 @api.param('id', 'Die ID des Personen-Objektes')
 class PersonOperations(Resource):
 
+    @api.marshal_with(person)
+    @api.expect(person, validate=True)
+    def put(self, id):
+        adm = Administraion()
+        p = Person.from_dict(api.payload)
+
+        if p is not None:
+            p.set_id(id)
+            adm.save_person(p)
+            return '', 200
+        else:
+            # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
+            return '', 500
+
     # Auslesen einer bestimmten Person via ID
     @api.marshal_with(person)
     def get(self, id):
         adm = Administraion()
         person = adm.get_person_by_id(id)
         return person
+
+    def delete(self, id):
+        adm = Administraion()
+        person = adm.get_person_by_id(id)
+
+        if person is not None:
+            adm.delete_person(person)
+            return '', 200
+        else:
+            # wenn unter id keine Transaction existiert.
+            return 'Hier ist etwas schiefgelaufen', 500
 
 """
 Nachdem wir nun sämtliche Resourcen definiert haben, die wir via REST bereitstellen möchten,
